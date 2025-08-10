@@ -29,3 +29,15 @@ export type EventType =
     | "message_reply"
     | "message"
     | "event";
+
+export interface TextMessage {
+    /**
+     * Reply this message.
+     *
+     * @param {...string} body - The body of message
+     * @returns {Promise<{ messageID: string, threadID: string, timestamp: number }>}
+     */
+    reply(
+        ...body: string[]
+    ): Promise<{ messageID: string; threadID: string; timestamp: number }>;
+}

@@ -6,17 +6,16 @@ const { join } = require("path");
 
 const config = require("../config.json");
 
-globalThis.config = config;
-
-globalThis.logger = {
-    info: (message) => Logger(message, "info"),
-    error: (message) => Logger(message, "error"),
-    warn: (message) => Logger(message, "warn"),
+globalThis.client = {
+    config,
+    commands: new Map(),
+    events: new EventEmitter(),
+    logger: {
+        info: (...message) => Logger(message.join(" "), "info"),
+        error: (...message) => Logger(message.join(" "), "error"),
+        warn: (...message) => Logger(message.join(" "), "warn"),
+    },
 };
-
-globalThis.commands = new Map();
-globalThis.botEvent = new EventEmitter();
-globalThis.emptyFunction = function () {};
 
 const appState = JSON.parse(readFileSync("appState.json", "utf8"));
 const credentials = { appState };
@@ -35,8 +34,10 @@ const callback = (error, api) => {
     const events = eventFiles.map((f) => require(join(eventsPath, f)));
     for (const event of events) {
         if (event.__isEvent) {
-            logger.info(`Loaded event: ${event.name}`);
-            botEvent.on(event.name, (message) => event.execute(api, message));
+            client.logger.info(`Loaded event: ${event.name}`);
+            client.events.on(event.name, (message) =>
+                event.execute(api, message)
+            );
         }
     }
 
@@ -46,17 +47,34 @@ const callback = (error, api) => {
     const cmds = cmdFiles.map((f) => require(join(cmdsPath, f)));
     for (const cmd of cmds) {
         if (cmd.__isCommand) {
-            logger.info(`Loaded command: ${cmd.name}`);
-            commands.set(cmd.name, cmd);
+            client.logger.info(`Loaded command: ${cmd.name}`);
+            client.commands.set(cmd.name, cmd);
         }
     }
 
     api.listenMqtt((error, message) => {
-        if (error) logger.error("mqtt-error: " + error);
-        // logger.info("mqtt-message: \n" + JSON.stringify(message, null, 2));
+        if (error) client.logger.error("mqtt-error: " + error);
+        // client.logger.info("mqtt-message: \n" + JSON.stringify(message, null, 2));
         if (typeof message.type === "string") {
             const type = message.type;
-            botEvent.emit(type, message);
+            message.reply = function (...body) {
+                return new Promise((resolve, reject) => {
+                    api.sendMessage(
+                        body.join(" "),
+                        message.threadID,
+                        (error, data) => {
+                            if (error) {
+                                client.logger.error(error);
+                                reject(error);
+                            } else {
+                                resolve(data);
+                            }
+                        },
+                        message.messageID
+                    );
+                });
+            };
+            client.events.emit(type, message);
         }
     });
 };

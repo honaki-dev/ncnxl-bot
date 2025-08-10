@@ -5,7 +5,7 @@ class Command {
      * @param {object} options - The options of command
      * @param {string} options.name - The name of command
      * @param {string} options.description - The description of command
-     * @param {(api: any, message: any) => void} options.execute - The execute of command
+     * @param {(api: any, message: import('../types/index').TextMessage) => void} options.execute - The execute of command
      */
     constructor(options) {
         if (!options.name || !options.execute) {
