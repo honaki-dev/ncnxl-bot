@@ -30,14 +30,22 @@ export type EventType =
     | "message"
     | "event";
 
+export type MessageBody = {
+    body: string;
+    mentions?: {
+        tag: string;
+        id: string;
+        fromIndex?: number;
+    }[];
+};
 export interface TextMessage {
     /**
      * Reply this message.
      *
-     * @param {...string} body - The body of message
+     * @param {string|{ body: string, mentions?: {tag: string, id: string, fromIndex?: number}[] }} body - The body of message
      * @returns {Promise<{ messageID: string, threadID: string, timestamp: number }>}
      */
     reply(
-        ...body: string[]
+        body: string | MessageBody
     ): Promise<{ messageID: string; threadID: string; timestamp: number }>;
 }

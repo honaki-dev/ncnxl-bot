@@ -15,6 +15,7 @@ globalThis.client = {
         error: (...message) => Logger(message.join(" "), "error"),
         warn: (...message) => Logger(message.join(" "), "warn"),
     },
+    prompt: readFileSync("./resources/system.md", "utf8"),
 };
 
 const appState = JSON.parse(readFileSync("appState.json", "utf8"));
@@ -57,10 +58,10 @@ const callback = (error, api) => {
         // client.logger.info("mqtt-message: \n" + JSON.stringify(message, null, 2));
         if (typeof message.type === "string") {
             const type = message.type;
-            message.reply = function (...body) {
+            message.reply = function (body) {
                 return new Promise((resolve, reject) => {
                     api.sendMessage(
-                        body.join(" "),
+                        body,
                         message.threadID,
                         (error, data) => {
                             if (error) {

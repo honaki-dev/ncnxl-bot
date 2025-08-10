@@ -12,7 +12,13 @@ module.exports = new Event({
             try {
                 await cmd.execute(api, message, ...args);
             } catch (error) {
-                client.logger.error(`Error in command ${cmdName}:` + error);
+                try {
+                    client.logger.error(
+                        `Error in command ${cmdName}:` + JSON.stringify(error)
+                    );
+                } catch (_err) {
+                    client.logger.error(`Error in command ${cmdName}:` + error);
+                }
             }
         }
     },
