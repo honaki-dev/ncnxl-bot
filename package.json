@@ -1,0 +1,19 @@
+{
+    "name": "ncnxl-bot",
+    "version": "0.1.0",
+    "main": "index.js",
+    "scripts": {
+        "start": "node src/index.js"
+    },
+    "author": "Honaki Tran <conghoang.dev09@gmail.com>",
+    "license": "MIT",
+    "description": "A bot custom for my messenger",
+    "dependencies": {
+        "@dongdev/fca-unofficial": "^1.0.20"
+    },
+    "devDependencies": {
+        "@types/node": "^24.2.1",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.9.2"
+    }
+}

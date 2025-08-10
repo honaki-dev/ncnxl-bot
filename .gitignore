@@ -1,0 +1,5 @@
+node_modules/
+Fca_Database/
+appState.json
+fca-config.json
+yarn.lock
