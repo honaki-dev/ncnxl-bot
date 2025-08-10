@@ -7,7 +7,7 @@
     },
     "author": "Honaki Tran <conghoang.dev09@gmail.com>",
     "license": "MIT",
-    "description": "A bot custom for my messenger",
+    "description": "A bot custom for my messenger group.",
     "dependencies": {
         "@dongdev/fca-unofficial": "^1.0.20"
     },
