@@ -17,8 +17,4 @@ declare module "../src/models/Client" {
             eventData: EventMap[E]
         ): boolean;
     }
-
-    interface Event {
-        type: keyof EventMap;
-    }
 }
