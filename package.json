@@ -13,9 +13,13 @@
         "@dongdev/fca-unofficial": "^1.0.20",
         "openai": "^5.12.2"
     },
-    "devDependencies": {
-        "@types/node": "^24.2.1",
-        "ts-node": "^10.9.2",
-        "typescript": "^5.9.2"
-    }
+    "devDependencies": {},
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/honaki-dev/ncnxl-bot.git"
+    },
+    "bugs": {
+        "url": "https://github.com/honaki-dev/ncnxl-bot/issues"
+    },
+    "homepage": "https://github.com/honaki-dev/ncnxl-bot#readme"
 }

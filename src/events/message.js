@@ -14,10 +14,12 @@ module.exports = new Event({
             } catch (error) {
                 try {
                     client.logger.error(
-                        `Error in command ${cmdName}:` + JSON.stringify(error)
+                        `Error in command ${cmdName}:\n` + JSON.stringify(error)
                     );
                 } catch (_err) {
-                    client.logger.error(`Error in command ${cmdName}:` + error);
+                    client.logger.error(
+                        `Error in command ${cmdName}:\n` + error
+                    );
                 }
             }
         }

@@ -20,8 +20,7 @@ async function callAzureGPT4(messages) {
 
     if (!response.ok) {
         const error = await response.json();
-        console.error("Error:", error);
-        return;
+        throw new Error(error);
     }
 
     const data = await response.json();
