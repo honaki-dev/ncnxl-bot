@@ -1,21 +1,37 @@
 {
     "name": "ncnxl-bot",
     "version": "0.1.0",
-    "main": "./src/index.js",
-    "types": "./src/types/index.d.ts",
-    "scripts": {
-        "start": "node ./src/index.js"
-    },
-    "author": "Honaki Tran <conghoang.dev09@gmail.com>",
-    "license": "MIT",
-    "description": "A bot custom for my messenger group.",
+    "description": "A custom bot for my messenger group.",
+    "main": "./dist/index.js",
     "dependencies": {
-        "@dongdev/fca-unofficial": "^1.0.20",
-        "openai": "^5.12.2"
+        "ws3-fca": "^3.4.2"
     },
     "devDependencies": {
         "@types/node": "^24.2.1",
+        "prettier": "^3.6.2",
         "ts-node": "^10.9.2",
+        "tslib": "^2.8.1",
         "typescript": "^5.9.2"
-    }
+    },
+    "scripts": {
+        "test": "ts-node ./src/index.ts",
+        "start": "node ./dist/index.js",
+        "build": "tsc"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/honaki-dev/ncnxl-bot.git"
+    },
+    "keywords": [
+        "bot",
+        "messenger-bot",
+        "fca",
+        "facebook-chat-api"
+    ],
+    "author": "Honaki Tran <conghoang.dev09@gmail.com>",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/honaki-dev/ncnxl-bot/issues"
+    },
+    "homepage": "https://github.com/honaki-dev/ncnxl-bot#readme"
 }
