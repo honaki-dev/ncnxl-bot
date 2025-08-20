@@ -1,4 +1,4 @@
-import { EventEmitterAsyncResource } from "stream";
+import EventEmitter from "node:events";
 import {
     LoginOptions,
     LoginCredentials,
@@ -8,11 +8,13 @@ import {
 } from "ws3-fca";
 import { Command } from "./Command";
 
-export class Client extends EventEmitterAsyncResource {
+export class Client extends EventEmitter {
     public options: LoginOptions;
     public api?: API;
 
     public commands: Map<string, Command>;
+
+    public modules: Record<string, any>;
 
     constructor(options: LoginOptions) {
         super();
@@ -20,6 +22,9 @@ export class Client extends EventEmitterAsyncResource {
         this.options = options;
 
         this.commands = new Map();
+
+        this.modules = {};
+        this.modules.tiktok = require("../modules/TiktokDownloader");
     }
 
     async login(credentials: LoginCredentials): Promise<void> {

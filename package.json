@@ -4,7 +4,8 @@
     "description": "A custom bot for my messenger group.",
     "main": "./dist/index.js",
     "dependencies": {
-        "ws3-fca": "^3.4.2"
+        "tslib": "^2.8.1",
+        "ws3-fca": "3.4.2"
     },
     "devDependencies": {
         "@types/node": "^24.2.1",
@@ -15,7 +16,8 @@
     "scripts": {
         "test": "ts-node ./src/index.ts",
         "start": "node ./dist/index.js",
-        "build": "tsc"
+        "build": "tsc",
+        "postinstall": "patch-package"
     },
     "repository": {
         "type": "git",
